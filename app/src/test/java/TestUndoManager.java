@@ -8,6 +8,8 @@ public class TestUndoManager {
 
     @Test
     public void Case01() {
+        System.out.printf("Case: normal undo/redo.\n");
+
         UndoManager manager = new UndoManager(100, 10);
         manager.add(150);       // 250
         manager.subtract(50);   // 200
@@ -33,6 +35,8 @@ public class TestUndoManager {
 
     @Test
     public void Case02() {
+        System.out.printf("Case: operations are more than than maximum size of undo list.\n");
+
         UndoManager manager = new UndoManager(1, 3);
         manager.add(1); // 2
         manager.add(1); // 3
@@ -53,6 +57,8 @@ public class TestUndoManager {
 
     @Test
     public void Case03() {
+        System.out.printf("Case: Arbitrarily redo/undo for many times.\n");
+
         // testing the conner case of redo operation
         UndoManager manager = new UndoManager(1, 2);
         manager.add(1); // 2

@@ -10,6 +10,24 @@ import cb.quiz.undomanager.impl.DivideTask;
 import cb.quiz.undomanager.impl.MultiplyTask;
 import cb.quiz.undomanager.impl.SubtractTask;
 
+/**
+ * Author: boyw165
+ * Email: boy@cardinalblue.com
+ *        boyw165@gmail.com
+ * Date: 9.19.2015
+ *
+ * Architecture is:
+ *
+ *                       IPicoTask
+ *                           |
+ *                       BaseTask
+ *                           |
+ *      .-----------+--------+------+-------------.
+ *      |           |               |             |
+ *   AddTask   SubtractTask   MultiplyTask   DivideTask
+ *
+ * Operation is the concrete task instance. All the operations are managed in a ListArray.
+ */
 public class UndoManager {
 
     // The maximum size of the history.
