@@ -1,4 +1,4 @@
-package cb.inteface;
+package cb.quiz.picocache.iface;
 
 public interface IPicoCache {
     /**

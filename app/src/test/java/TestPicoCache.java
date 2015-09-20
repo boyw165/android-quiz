@@ -5,8 +5,8 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import cb.factory.PicoCacheFactory;
-import cb.inteface.IPicoCache;
+import cb.quiz.picocache.factory.PicoCacheFactory;
+import cb.quiz.picocache.iface.IPicoCache;
 
 public class TestPicoCache {
     private byte[] data20kb_1 = new byte[20 << 10];

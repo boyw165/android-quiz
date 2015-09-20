@@ -1,4 +1,4 @@
-package cb.factory;
+package cb.quiz.picocache.factory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.UUID;
 
-import cb.inteface.IPicoCache;
+import cb.quiz.picocache.iface.IPicoCache;
 
 /**
  * Author: boyw165
