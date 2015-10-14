@@ -9,6 +9,8 @@ import cb.quiz.picocache.factory.PicoCacheFactory;
 import cb.quiz.picocache.iface.IPicoCache;
 
 public class TestPicoCache {
+    private byte[] data10kb_1 = new byte[10 << 10];
+
     private byte[] data20kb_1 = new byte[20 << 10];
     private byte[] data20kb_2 = new byte[20 << 10];
     private byte[] data20kb_3 = new byte[20 << 10];
@@ -281,4 +283,55 @@ public class TestPicoCache {
         Assert.assertTrue(cache2.get("data2") != null);
     }
 
+    @Test
+    public void Case03() {
+        // FIXME using difference way to verify this behavior
+        System.out.printf("Case: File Cache should be persistence\n");
+
+        IPicoCache cache1 = PicoCacheFactory.create(PicoCacheFactory.TYPE_FILE,
+                PicoCacheFactory.STRATEGY_FIFO);
+        // Over fill it with many chunks of data.
+        cache1.setCacheSize(20);
+        cache1.put("data1", data20kb_1);
+
+        IPicoCache cache2 = PicoCacheFactory.create(PicoCacheFactory.TYPE_FILE,
+                PicoCacheFactory.STRATEGY_FIFO);
+        cache2.setCacheSize(20);
+        Assert.assertNotNull(cache2.get("data1"));
+    }
+
+    @Test
+    public void Case04() {
+        System.out.printf("Case: Override a cache entity\n");
+        IPicoCache c = PicoCacheFactory.create(PicoCacheFactory.TYPE_MEMORY, PicoCacheFactory.STRATEGY_LIFO);
+        c.setCacheSize(1024); // cache size is 1MB
+        c.put("key1", data10kb_1);
+        c.put("key1", data20kb_1); // the same key
+        Assert.assertNotNull(c.get("key1"));
+        Assert.assertEquals((20 << 10), c.get("key1").length);
+    }
+
+    @Test
+    public void Case05() {
+        System.out.printf("Case: Clean cache entities\n");
+        IPicoCache c1 = PicoCacheFactory.create(PicoCacheFactory.TYPE_MEMORY, PicoCacheFactory.STRATEGY_LIFO);
+        c1.setCacheSize(1024); // cache size is 1MB
+        c1.put("key1", data20kb_1);
+        c1.put("key2", data20kb_2);
+        c1.put("key3", data20kb_3);
+        c1.clear();
+        Assert.assertNull(c1.get("key1"));
+        Assert.assertNull(c1.get("key2"));
+        Assert.assertNull(c1.get("key3"));
+
+        IPicoCache c2 = PicoCacheFactory.create(PicoCacheFactory.TYPE_FILE, PicoCacheFactory.STRATEGY_FIFO);
+        c2.setCacheSize(1024); // cache size is 1MB
+        c2.put("key1", data20kb_1);
+        c2.put("key2", data20kb_2);
+        c2.put("key3", data20kb_3);
+        c2.clear();
+        Assert.assertNull(c2.get("key1"));
+        Assert.assertNull(c2.get("key2"));
+        Assert.assertNull(c2.get("key3"));
+    }
 }
