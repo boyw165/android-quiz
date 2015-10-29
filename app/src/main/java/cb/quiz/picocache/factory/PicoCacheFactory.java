@@ -191,7 +191,7 @@ public class PicoCacheFactory {
         @Override
         public synchronized void clear() {
             if (!mList.isEmpty()) {
-                mList.remove();
+                mList.clear();
                 mSize = 0;
             }
         }
