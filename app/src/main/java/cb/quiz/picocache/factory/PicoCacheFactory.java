@@ -35,7 +35,6 @@ import cb.quiz.picocache.iface.IPicoCache;
 public class PicoCacheFactory {
 
     public static final int TYPE_MEMORY     = 0x00000001;
-    public static final int TYPE_FILE       = 0x00000002;
 
     public static final int STRATEGY_FIFO   = 0x10000001;
     public static final int STRATEGY_LIFO   = 0x10000002;
@@ -48,7 +47,7 @@ public class PicoCacheFactory {
 
     // Node factory.
     private static final ICacheNodeFactory mMemoNodeFactory = new CacheNodeFactory(TYPE_MEMORY);
-    private static final ICacheNodeFactory mFileNodeFactory = new CacheNodeFactory(TYPE_FILE);
+//    private static final ICacheNodeFactory mFileNodeFactory = new CacheNodeFactory(TYPE_FILE);
 
     public PicoCacheFactory() {
         throw new RuntimeException("Cannot be constructed!");
@@ -63,9 +62,9 @@ public class PicoCacheFactory {
             case TYPE_MEMORY:
                 factory = mMemoNodeFactory;
                 break;
-            case TYPE_FILE:
-                factory = mFileNodeFactory;
-                break;
+//            case TYPE_FILE:
+//                factory = mFileNodeFactory;
+//                break;
         }
 
         // Cache strategy.
@@ -350,9 +349,9 @@ public class PicoCacheFactory {
                 case TYPE_MEMORY:
                     node = new MemoNode();
                     break;
-                case TYPE_FILE:
-                    node = new FileNode();
-                    break;
+//                case TYPE_FILE:
+//                    node = new FileNode();
+//                    break;
             }
 
             if (node != null) {
